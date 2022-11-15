@@ -24,7 +24,7 @@ export default function App() {
         progress={progress}
       />
         <Navbar darkMode={darkMode} setDisplay={setDisplay} />
-        <Buttons display={display} setDarkMode={setDarkMode}/>
+        <Buttons display={display} darkMode={darkMode} setDarkMode={setDarkMode}/>
         <Routes>
           <Route path='/' element={<News darkMode={darkMode} setProgress={setProgress} apiKey={apiKey} pageSize={pageSize} category='general' key='home'/>} />
           <Route path='/newsShowcase' element={<News darkMode={darkMode} setProgress={setProgress} apiKey={apiKey} query='world' category='world' key='newsShowcase' country={null} />} />
