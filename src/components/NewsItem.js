@@ -8,7 +8,7 @@ function NewsItem(props) {
     let weekDayArray = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
     let monthArray = ["January","February","March","April","May","June","July","August","September","October","November","December"]
     return (
-      <div className='newsitems bg-white text-xl shadow-xl first:rounded-t-2xl last:rounded-b-2xl pl-2 py-4 mx-72 flex border-b-2'>
+      <div className={`newsitems transition-all duration-300 ${props.darkMode?'bg-[#1f1f1f] text-white border-[#5e5e5e]':'bg-white text-black border-[#e3e3e3]'} text-xl shadow-xl first:rounded-t-2xl last:rounded-b-2xl pl-2 py-4 mx-72 flex border-b-[1px]`}>
         <img className='w-72 rounded-2xl ml-2 cursor-pointer' src={urlToImage} alt="" />
         <div className="details">
         <p className='px-4 font-bold text-lg'>{name?name:'Unknown Source'}</p>

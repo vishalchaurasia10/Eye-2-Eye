@@ -58,11 +58,11 @@ const News=(props)=> {
   }
     return (
       <>
-        {props.category!=='general' && props.category!=='local' && !(props.mainEndpoint==='top-headlines' && props.query==='world') && <div className='bg-[#f6f8fc] pt-32 pb-5 flex justify-start items-center px-72 text-3xl'>
+        {props.category!=='general' && props.category!=='local' && !(props.mainEndpoint==='top-headlines' && props.query==='world') && <div className={`transition-all duration-300 ${props.darkMode?'bg-[#292a2d] text-white':'bg-[#f6f8fc] text-black'} bg-[#f6f8fc] pt-32 pb-5 flex justify-start items-center px-72 text-3xl`}>
           <img className={`${(imageUpdation(props.category)).bgColor} rounded-full mr-2`} src={(imageUpdation(props.category).type)} alt="" />
           {(props.category[0]).toUpperCase() + (props.category).substring(1)}
         </div>}
-        {(props.category==='general' || props.category==='local' || (props.mainEndpoint==='top-headlines' && props.query==='world')) && <div className='text-blue-600 pt-32 bg-[#f6f8fc] flex items-center text-2xl pl-72 py-4 rounded-t-2xl'> <Link to={props.category==='general'?'/india':props.category==='local'?'/local':'/world'}> {props.category==='general'?'India Top-headlines':props.category==='local'?'Your local news':'World Top-headlines'}</Link><span className='pb-[6px] ml-1 text-4xl'>&#8250;</span></div>}
+        {(props.category==='general' || props.category==='local' || (props.mainEndpoint==='top-headlines' && props.query==='world')) && <div className={`transition-all duration-300 ${props.darkMode?'bg-[#292a2d] text-white':'bg-[#f6f8fc] text-blue-600'} pt-32 ] flex items-center text-2xl pl-72 py-4 rounded-t-2xl`}> <Link to={props.category==='general'?'/india':props.category==='local'?'/local':'/world'}> {props.category==='general'?'India Top-headlines':props.category==='local'?'Your local news':'World Top-headlines'}</Link><span className='pb-[6px] ml-1 text-4xl'>&#8250;</span></div>}
         {(loading)&&<Spinner/>}
         <InfiniteScroll
           dataLength={articles.length}
@@ -70,9 +70,9 @@ const News=(props)=> {
           hasMore={page<Math.ceil(totalResults/props.pageSize)}
           loader={<Spinner/>}
         >
-          <div className='bg-[#f6f8fc] pb-4'>
+          <div className={`transition-all duration-300 ${props.darkMode?'bg-[#292a2d]':'bg-[#f6f8fc]'} pb-4`}>
             {articles.map((element) => {
-              return (element.title && element.urlToImage) && <NewsItem key={element.url} title={element.title} urlToImage={element.urlToImage} name={element.source.name} author={element.author} publishedAt={element.publishedAt}
+              return (element.title && element.urlToImage) && <NewsItem darkMode={props.darkMode} key={element.url} title={element.title} urlToImage={element.urlToImage} name={element.source.name} author={element.author} publishedAt={element.publishedAt}
                 time={parseInt(element.publishedAt.substring(11, 13)) + 5} url={element.url} />
             })}
           </div>
