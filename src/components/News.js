@@ -20,7 +20,8 @@ const News=(props)=> {
   const [totalResults, setTotalResults] = useState(0);
 
   const fetchMoreData = async() => {
-    let url = `https://newsapi.org/v2/${props.mainEndpoint}?${props.query ? `q=${props.query}&` : ''}${props.country ? `country=${props.country}&` : ''}${props.category !== null && props.category !== 'india' && props.category !== 'world' && props.category !== 'local' ? `category=${props.category}&` : ''}pageSize=${props.pageSize}&apiKey=${props.apiKey}&page=${page+1}`
+    let url = `https://newsapi.org/v2/${props.mainEndpoint}?${props.query ? `q=${props.query}&` : ''}${props.country ? `country=${props.country}&` : ''}${props.category !== null && props.category !== 'india' && props.category !== 'world' && props.category !== 'local' && props.category!=='xyz' ? `category=${props.category}&` : ''}pageSize=${props.pageSize}&apiKey=${props.apiKey}&page=${page+1}`
+
     setPage(page+1)
     let data = await fetch(url)
     let parsedData = await data.json();
@@ -30,7 +31,7 @@ const News=(props)=> {
 
   const updateLink = async (page) => {
     props.setProgress(10)
-    let url = `https://newsapi.org/v2/${props.mainEndpoint}?${props.query ? `q=${props.query}&` : ''}${props.country ? `country=${props.country}&` : ''}${props.category !== null && props.category !== 'india' && props.category !== 'world' && props.category !== 'local' ? `category=${props.category}&` : ''}pageSize=${props.pageSize}&apiKey=${props.apiKey}&page=${page}`
+    let url = `https://newsapi.org/v2/${props.mainEndpoint}?${props.query ? `q=${props.query}&` : ''}${props.country ? `country=${props.country}&` : ''}${props.category !== null && props.category !== 'india' && props.category !== 'world' && props.category !== 'local' && props.category!=='xyz' ? `category=${props.category}&` : ''}pageSize=${props.pageSize}&apiKey=${props.apiKey}&page=${page}`
     let data = await fetch(url)
     props.setProgress(30)
     let parsedData = await data.json();
@@ -41,7 +42,8 @@ const News=(props)=> {
     props.setProgress(100)
   }
   useEffect(()=>{
-    props.category.length!==0 && (document.title = `NewsMonkey-${(props.category[0]).toUpperCase() + (props.category).substring(1)}`)
+    props.category.length!==0 && props.category!=='xyz' && (document.title = `NewsMonkey-${(props.category[0]).toUpperCase() + (props.category).substring(1)}`)
+    props.category==='xyz' && (document.title = `NewsMonkey-${(props.query[0]).toUpperCase() + (props.query).substring(1)}`)
     updateLink(page)
     // eslint-disable-next-line
   },[])
@@ -58,11 +60,11 @@ const News=(props)=> {
   }
     return (
       <>
-        {props.category!=='general' && props.category!=='local' && !(props.mainEndpoint==='top-headlines' && props.query==='world') && <div className={`transition-all duration-300 ${props.darkMode?'bg-[#292a2d] text-white':'bg-[#f6f8fc] text-black'} bg-[#f6f8fc] pt-32 pb-5 flex justify-start items-center px-72 text-3xl`}>
+        {props.category!=='general' && props.category!=='local' && props.category!=='xyz' && !(props.mainEndpoint==='top-headlines' && props.query==='world') && <div className={`transition-all duration-300 ${props.darkMode?'bg-[#292a2d] text-white':'bg-[#f6f8fc] text-black'} px-2 py-3 pt-[4.5rem] lg:pt-32 lg:pb-5 flex justify-start items-center lg:px-72 text-3xl`}>
           <img className={`${(imageUpdation(props.category)).bgColor} rounded-full mr-2`} src={(imageUpdation(props.category).type)} alt="" />
           {(props.category[0]).toUpperCase() + (props.category).substring(1)}
         </div>}
-        {(props.category==='general' || props.category==='local' || (props.mainEndpoint==='top-headlines' && props.query==='world')) && <div className={`transition-all duration-300 ${props.darkMode?'bg-[#292a2d] text-white':'bg-[#f6f8fc] text-blue-600'} pt-32 ] flex items-center text-2xl pl-72 py-4 rounded-t-2xl`}> <Link to={props.category==='general'?'/india':props.category==='local'?'/local':'/world'}> {props.category==='general'?'India Top-headlines':props.category==='local'?'Your local news':'World Top-headlines'}</Link><span className='pb-[6px] ml-1 text-4xl'>&#8250;</span></div>}
+        {(props.category==='general' || props.category==='local' || props.category==='xyz' || (props.mainEndpoint==='top-headlines' && props.query==='world')) && <div className={`transition-all duration-300 ${props.darkMode?'bg-[#292a2d] text-white':'bg-[#f6f8fc] text-blue-600'} pt-[4.5rem] lg:pt-32 flex items-center text-2xl px-2 lg:pl-72 py-4 rounded-t-2xl`}> <Link to={props.category==='general'?'/india':props.category==='local'?'/local':props.category==='xyz'?'':'/world'}> {props.category==='general'?'India Top-headlines':props.category==='local'?'Your local news':props.category==='xyz'?`Search related to ${props.query}`:'World Top-headlines'}</Link><span className='pb-[6px] ml-1 text-4xl'>&#8250;</span></div>}
         {(loading)&&<Spinner/>}
         <InfiniteScroll
           dataLength={articles.length}

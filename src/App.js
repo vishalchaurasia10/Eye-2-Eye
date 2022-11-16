@@ -13,9 +13,7 @@ export default function App() {
   const [progress,setProgress] = useState(0)
   const [darkMode,setDarkMode] = useState(0)
   const [display,setDisplay] = useState(0)
-  // const changeDarkMode = () => {
-
-  // }
+  const [customQuery,setCustomQuery] = useState('lucknow')
     return (
       <div>
       <BrowserRouter>
@@ -23,7 +21,7 @@ export default function App() {
         color='#f11946'
         progress={progress}
       />
-        <Navbar darkMode={darkMode} setDisplay={setDisplay} />
+        <Navbar darkMode={darkMode} setCustomQuery={setCustomQuery} setDisplay={setDisplay} />
         <Buttons display={display} darkMode={darkMode} setDarkMode={setDarkMode}/>
         <Routes>
           <Route path='/' element={<News darkMode={darkMode} setProgress={setProgress} apiKey={apiKey} pageSize={pageSize} category='general' key='home'/>} />
@@ -37,6 +35,7 @@ export default function App() {
           <Route path='/sports' element={<News darkMode={darkMode} setProgress={setProgress} apiKey={apiKey} key='sports' pageSize={pageSize} category='sports' />} />
           <Route path='/science' element={<News darkMode={darkMode} setProgress={setProgress} apiKey={apiKey} key='science' pageSize={pageSize} category='science' />} />
           <Route path='/health' element={<News darkMode={darkMode} setProgress={setProgress} apiKey={apiKey} key='health' pageSize={pageSize} category='health' />} />
+          {customQuery!=='lucknow' && <Route path={`/${customQuery}`} element={<News darkMode={darkMode} setProgress={setProgress} apiKey={apiKey} key={customQuery} pageSize={pageSize} mainEndpoint='everything' country={null} category='xyz' query={customQuery} />} />}
         </Routes>
       </BrowserRouter>
       </div>
