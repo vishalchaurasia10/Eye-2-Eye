@@ -60,11 +60,12 @@ const News=(props)=> {
   }
     return (
       <>
-        {props.category!=='general' && props.category!=='local' && props.category!=='xyz' && !(props.mainEndpoint==='top-headlines' && props.query==='world') && <div className={`transition-all duration-300 ${props.darkMode?'bg-[#292a2d] text-white':'bg-[#f6f8fc] text-black'} px-2 py-3 pt-[4.5rem] lg:pt-32 lg:pb-5 flex justify-start items-center lg:px-72 text-3xl`}>
+      <div className={`space pt-[5rem] lg:pt-0  ${props.darkMode?'bg-[#292a2d]':'bg-[#f6f8fc]'}`}></div>
+        {props.category!=='general' && props.category!=='local' && props.category!=='xyz' && !(props.mainEndpoint==='top-headlines' && props.query==='world') && <div className={`transition-all duration-300 ${props.darkMode?'bg-[#292a2d] text-white':'bg-[#f6f8fc] text-black'} px-2 py-3 lg:pt-32 lg:pb-5 flex justify-start items-center lg:px-72 text-3xl`}>
           <img className={`${(imageUpdation(props.category)).bgColor} rounded-full mr-2`} src={(imageUpdation(props.category).type)} alt="" />
           {(props.category[0]).toUpperCase() + (props.category).substring(1)}
         </div>}
-        {(props.category==='general' || props.category==='local' || props.category==='xyz' || (props.mainEndpoint==='top-headlines' && props.query==='world')) && <div className={`transition-all duration-300 ${props.darkMode?'bg-[#292a2d] text-white':'bg-[#f6f8fc] text-blue-600'} pt-[4.5rem] lg:pt-32 flex items-center text-2xl px-2 lg:pl-72 py-4 rounded-t-2xl`}> <Link to={props.category==='general'?'/india':props.category==='local'?'/local':props.category==='xyz'?'':'/world'}> {props.category==='general'?'India Top-headlines':props.category==='local'?'Your local news':props.category==='xyz'?`Search related to ${props.query}`:'World Top-headlines'}</Link><span className='pb-[6px] ml-1 text-4xl'>&#8250;</span></div>}
+        {(props.category==='general' || props.category==='local' || props.category==='xyz' || (props.mainEndpoint==='top-headlines' && props.query==='world')) && <div className={`transition-all duration-300 ${props.darkMode?'bg-[#292a2d] text-white':'bg-[#f6f8fc] text-blue-600'} lg:pt-32 flex items-center text-2xl px-2 lg:pl-72 py-4 lg:rounded-t-2xl`}> <Link to={props.category==='general'?'/india':props.category==='local'?'/local':props.category==='xyz'?'':'/world'}> {props.category==='general'?'India Top-headlines':props.category==='local'?'Your local news':props.category==='xyz'?`Search related to ${props.query}`:'World Top-headlines'}</Link><span className='pb-[6px] ml-1 text-4xl'>&#8250;</span></div>}
         {(loading)&&<Spinner/>}
         <InfiniteScroll
           dataLength={articles.length}

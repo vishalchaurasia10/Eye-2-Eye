@@ -16,7 +16,7 @@ function Buttons(props) {
         }
     }
   return (
-    <div className={`${props.darkMode?'bg-[#686868]':'bg-white shadow-black'} transition-all duration-300 ${props.display?'scale-100':'scale-0'} w-20 h-48 top-[4.3rem] lg:right-[21rem] right-[1px] flex  flex-col rounded-2xl fixed shadow-2xl`}>
+    <div className={`${props.darkMode?'bg-[#686868]':'bg-white shadow-black'} transition-all duration-300 ${props.display?'scale-100':'scale-0'} w-20 h-48 top-[4.5rem] lg:right-[21rem] right-[1px] flex  flex-col rounded-2xl fixed shadow-2xl`}>
     <div>
       <input onClick={changeMode} className='h-[1.7rem] w-10 top-[16.3px] left-[1.2rem] relative appearance-none bg-white border border-black rounded-full' type="checkbox" name="" id="" />
       <div onClick={changeMode} className={`switch transition-all top-[-14px] ${mode?'left-[34px]':'left-[22px]'} duration-300 relative bg-black h-[1.35rem] w-[1.35rem] rounded-full `}></div>
