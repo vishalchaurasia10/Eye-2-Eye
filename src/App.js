@@ -3,13 +3,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from './components/Navbar';
 import News from './components/News';
 import LoadingBar from 'react-top-loading-bar'
-
 import React, { useState } from 'react'
 import Buttons from './components/Buttons';
 
 export default function App() {
   const pageSize=20
-  const apiKey=process.env.REACT_APP_NEWS_API
+  const apiKey="c8ef8c39943d436e8b9c8cb09cce8d1c"
   const [progress,setProgress] = useState(0)
   const [darkMode,setDarkMode] = useState(0)
   const [display,setDisplay] = useState(0)
