@@ -42,8 +42,8 @@ const News=(props)=> {
     props.setProgress(100)
   }
   useEffect(()=>{
-    props.category.length!==0 && props.category!=='xyz' && (document.title = `NewsMonkey-${(props.category[0]).toUpperCase() + (props.category).substring(1)}`)
-    props.category==='xyz' && (document.title = `NewsMonkey-${(props.query[0]).toUpperCase() + (props.query).substring(1)}`)
+    props.category.length!==0 && props.category!=='xyz' && (document.title = `The Insight-${(props.category[0]).toUpperCase() + (props.category).substring(1)}`)
+    props.category==='xyz' && (document.title = `The Insight-${(props.query[0]).toUpperCase() + (props.query).substring(1)}`)
     updateLink(page)
     // eslint-disable-next-line
   },[])
