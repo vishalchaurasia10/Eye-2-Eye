@@ -50,7 +50,6 @@ const News = (props) => {
       body: JSON.stringify(payloadJson),
     });
     const finalData = await finalResponse.json();
-    console.log(finalData);
 
     setPage(page + 1);
 
@@ -92,7 +91,6 @@ const News = (props) => {
       body: JSON.stringify(payloadJson),
     });
     const finalData = await finalResponse.json();
-    console.log(finalData);
     props.setProgress(30);
     let parsedData = finalData.data;
     props.setProgress(50);

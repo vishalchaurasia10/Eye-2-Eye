@@ -6,8 +6,7 @@ export default function Navbar(props) {
     const [expand,setexpand] = useState(0)
     const [expSearch,setExpSearch] = useState(1)
     const [input, setInput] = useState(props?.value ?? '');
-    // console.log(input)
-    // let searchQuery = input
+
     const searchId = useId()
     const performTask = () => {
         if(i%2===0){
@@ -31,16 +30,13 @@ export default function Navbar(props) {
     const expandSearch = () => {
         if(expSearch===0){
             setExpSearch(1)
-            // console.log(input)
         }
         else{
             setExpSearch(0)
         }
     }
     props.setCustomQuery(input)
-    // const searchQuery = (e) => {
-    //     console.log(e.target.select())
-    // }
+
     return (
         <>
             <div>

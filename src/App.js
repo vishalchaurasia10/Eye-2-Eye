@@ -5,11 +5,25 @@ import News from './components/News';
 import LoadingBar from 'react-top-loading-bar'
 import React, { useState } from 'react'
 import Buttons from './components/Buttons';
-
+localStorage.setItem('i',0)
 export default function App() {
   const pageSize=20
-  let i=0;
-  const apiKey=(i++)%2===0?"c8ef8c39943d436e8b9c8cb09cce8d1c":"1bd9b845d71e49e29c42c1f183bafce9"
+  // let i=0;
+  // const apiKey=(i++)%2===0?"c8ef8c39943d436e8b9c8cb09cce8d1c":"1bd9b845d71e49e29c42c1f183bafce9"
+
+  let apiKey
+
+  if((localStorage.getItem('i'))%2===0)
+  {
+    localStorage.setItem('i',Number(localStorage.getItem('i'))+1)
+    apiKey="c8ef8c39943d436e8b9c8cb09cce8d1c"
+  }
+  else
+  {
+    localStorage.setItem('i',Number(localStorage.getItem('i'))+1)
+    apiKey="1bd9b845d71e49e29c42c1f183bafce9"
+  }
+
   const [progress,setProgress] = useState(0)
   const [darkMode,setDarkMode] = useState(0)
   const [display,setDisplay] = useState(0)
