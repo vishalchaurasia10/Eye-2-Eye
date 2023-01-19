@@ -8,7 +8,8 @@ import Buttons from './components/Buttons';
 
 export default function App() {
   const pageSize=20
-  const apiKey="c8ef8c39943d436e8b9c8cb09cce8d1c"
+  let i=0;
+  const apiKey=(i++)%2===0?"c8ef8c39943d436e8b9c8cb09cce8d1c":"1bd9b845d71e49e29c42c1f183bafce9"
   const [progress,setProgress] = useState(0)
   const [darkMode,setDarkMode] = useState(0)
   const [display,setDisplay] = useState(0)
@@ -17,6 +18,7 @@ export default function App() {
       <div>
       <BrowserRouter>
         <LoadingBar
+        height={3}
         color='#f11946'
         progress={progress}
       />

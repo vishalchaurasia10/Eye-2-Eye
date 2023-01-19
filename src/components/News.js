@@ -146,7 +146,7 @@ const News = (props) => {
   return (
     <>
       <div
-        className={`space pt-[5rem] lg:pt-0  ${
+        className={`space pt-[5rem] lg:pt-0 transition-all duration-300 ${
           props.darkMode ? "bg-[#292a2d]" : "bg-[#f6f8fc]"
         }`}
       ></div>
@@ -179,7 +179,7 @@ const News = (props) => {
         (props.mainEndpoint === "top-headlines" &&
           props.query === "world")) && (
         <div
-          className={`transition-all duration-300 ${
+          className={`transition-all duration-300 font-nunito ${
             props.darkMode
               ? "bg-[#292a2d] text-white"
               : "bg-[#f6f8fc] text-blue-600"
@@ -206,7 +206,7 @@ const News = (props) => {
               ? `Search related to ${props.query}`
               : "World Top-headlines"}
           </Link>
-          <span className="pb-[6px] ml-1 text-4xl">&#8250;</span>
+          <span className="pb-[6px] ml-2 mt-1 text-4xl">&#8250;</span>
         </div>
       )}
       {loading && <Spinner />}

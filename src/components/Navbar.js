@@ -45,9 +45,9 @@ export default function Navbar(props) {
         <>
             <div>
                 <nav className={``}>
-                    <div className={`container1 w-full  transition-all duration-300 ${props.darkMode?'bg-[#202124] text-[#e1e1e2]':'bg-white text-[#5f6368]'} fixed items-center justify-center top-0 py-3 lg:py-2 flex`}>
+                    <div className={`container1 w-full font-nunito  transition-all duration-300 ${props.darkMode?'bg-[#202124] text-[#e1e1e2]':'bg-white text-[#5f6368]'} fixed items-center justify-center top-0 py-3 lg:py-2 flex`}>
                         <div className="logo w-1/4">
-                        <Link to='/'><img className={`w-40 ${!expSearch?'hidden':'block'} lg:block h-[10.5rem] absolute -top-[3.25rem] lg:left-52 left-0`}  src={props.darkMode?"/logo_Dark.svg":"/logo_Light.svg"} alt="Logo Light" /></Link>
+                        <Link to='/'><img className={`w-40 ${!expSearch?'hidden':'block'} lg:block h-[10.5rem] absolute -top-[3.25rem] left-0`}  src={props.darkMode?"/logo_Dark.svg":"/logo_Light.svg"} alt="Logo Light" /></Link>
                         </div>
                         <div className='flex lg:space-x-5 w-3/4  items-center justify-end lg:justify-start '>
                             <form className='flex'>
@@ -76,7 +76,7 @@ export default function Navbar(props) {
                             </div>
                         </div>
                     </div>
-                    <div className={`container2 transition-all duration-300 rounded-lg lg:rounded-none ${!expand?'right-[-140px]':'right-[5px]'} lg:right-0 ${props.darkMode?'bg-[#686868] lg:bg-[#202124] border-[#5e5e5e] text-[#e1e1e2]':'bg-white border-[#e3e3e3] text-[#5f6368]'} top-[77px] lg:w-full lg:top-16 lg:pt-4 fixed shadow-sm lg:border-b-[1px] lg:pb-3`}>
+                    <div className={`container2 font-nunito transition-all duration-300 rounded-lg lg:rounded-none ${!expand?'right-[-140px]':'right-[5px]'} lg:right-0 ${props.darkMode?'bg-[#686868] lg:bg-[#202124] border-[#5e5e5e] text-[#e1e1e2]':'bg-white border-[#e3e3e3] text-[#5f6368]'} top-[77px] lg:w-full lg:top-16 lg:pt-4 fixed shadow-sm lg:border-b-[1px] lg:pb-3`}>
                         <ul className=' lg:px-60 font-semibold space-y-2 lg:space-y-0 py-2 lg:py-0 text-sm flex flex-col lg:flex-row justify-between'>
                             <li className={`${props.darkMode?'hover:text-white':'hover:text-black'} px-2`}><Link to='/'>Home</Link>
                                 {/* <div className={`${`w-[4rem]`} h-1 rounded-t-lg bg-blue-600 relative top-3`}></div> */}
