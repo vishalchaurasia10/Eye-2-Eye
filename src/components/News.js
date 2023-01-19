@@ -19,87 +19,108 @@ const News = (props) => {
   const [loading, setLoading] = useState(true);
   const [totalResults, setTotalResults] = useState(0);
 
+  const API_LIST = [
+   
+    "1bd9b845d71e49e29c42c1f183bafce9",
+    "c8ef8c39943d436e8b9c8cb09cce8d1c",
+  ];
+
   const fetchMoreData = async () => {
-    let url = `https://newsapi.org/v2/${props.mainEndpoint}?${
-      props.query ? `q=${props.query}&` : ""
-    }${props.country ? `country=${props.country}&` : ""}${
-      props.category !== null &&
-      props.category !== "india" &&
-      props.category !== "world" &&
-      props.category !== "local" &&
-      props.category !== "xyz"
-        ? `category=${props.category}&`
-        : ""
-    }pageSize=${props.pageSize}&apiKey=${props.apiKey}&page=${page + 1}`;
+    let finalData = null;
+    for (const values of API_LIST) {
+      let url = `https://newsapi.org/v2/${props.mainEndpoint}?${
+        props.query ? `q=${props.query}&` : ""
+      }${props.country ? `country=${props.country}&` : ""}${
+        props.category !== null &&
+        props.category !== "india" &&
+        props.category !== "world" &&
+        props.category !== "local" &&
+        props.category !== "xyz"
+          ? `category=${props.category}&`
+          : ""
+      }pageSize=${props.pageSize}&apiKey=${values}&page=${page + 1}`;
 
-    const proxyURL = "https://mintedtweets.cordify.app/proxy-server";
-    const payloadJson = {
-      url: url,
-      isGet: true,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      password: "not today boy university post joker focus never cat",
-      payloadJson: {},
-    };
-    const finalResponse = await fetch(proxyURL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payloadJson),
-    });
-    const finalData = await finalResponse.json();
+      const proxyURL = "https://mintedtweets.cordify.app/proxy-server";
+      const payloadJson = {
+        url: url,
+        isGet: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        password: "not today boy university post joker focus never cat",
+        payloadJson: {},
+      };
+      const finalResponse = await fetch(proxyURL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payloadJson),
+      });
+      finalData = await finalResponse.json();
 
-    setPage(page + 1);
+      setPage(page + 1);
 
-    let parsedData = finalData.data;
-    setArticles(articles.concat(parsedData.articles));
-    setTotalResults(
-      parsedData.totalResults >= 100 ? 100 : parsedData.totalResults
-    );
+      let parsedData = finalData.data;
+      if (parsedData.code != "rateLimited") {
+        setArticles(articles.concat(parsedData.articles));
+        setTotalResults(
+          parsedData.totalResults >= 100 ? 100 : parsedData.totalResults
+        );
+
+        break;
+      }
+    }
   };
 
   const updateLink = async (page) => {
+    let finalData = null;
     props.setProgress(10);
-    let url = `https://newsapi.org/v2/${props.mainEndpoint}?${
-      props.query ? `q=${props.query}&` : ""
-    }${props.country ? `country=${props.country}&` : ""}${
-      props.category !== null &&
-      props.category !== "india" &&
-      props.category !== "world" &&
-      props.category !== "local" &&
-      props.category !== "xyz"
-        ? `category=${props.category}&`
-        : ""
-    }pageSize=${props.pageSize}&apiKey=${props.apiKey}&page=${page}`;
-    const proxyURL = "https://mintedtweets.cordify.app/proxy-server";
-    const payloadJson = {
-      url: url,
-      isGet: true,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      password: "not today boy university post joker focus never cat",
-      payloadJson: {},
-    };
-    const finalResponse = await fetch(proxyURL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payloadJson),
-    });
-    const finalData = await finalResponse.json();
-    props.setProgress(30);
-    let parsedData = finalData.data;
-    props.setProgress(50);
-    setArticles(parsedData.articles);
-    setLoading(false);
-    setTotalResults(
-      parsedData.totalResults >= 100 ? 100 : parsedData.totalResults
-    );
-    props.setProgress(100);
+
+    //loop through the api list and find the one that works
+    for (const values of API_LIST) {
+      let url = `https://newsapi.org/v2/${props.mainEndpoint}?${
+        props.query ? `q=${props.query}&` : ""
+      }${props.country ? `country=${props.country}&` : ""}${
+        props.category !== null &&
+        props.category !== "india" &&
+        props.category !== "world" &&
+        props.category !== "local" &&
+        props.category !== "xyz"
+          ? `category=${props.category}&`
+          : ""
+      }pageSize=${props.pageSize}&apiKey=${values}&page=${page}`;
+      const proxyURL = "https://mintedtweets.cordify.app/proxy-server";
+      const payloadJson = {
+        url: url,
+        isGet: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        password: "not today boy university post joker focus never cat",
+        payloadJson: {},
+      };
+      const finalResponse = await fetch(proxyURL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payloadJson),
+      });
+      finalData = await finalResponse.json();
+      props.setProgress(30);
+      let parsedData = finalData.data;
+      if (parsedData.code != "rateLimited") {
+        props.setProgress(50);
+        setArticles(parsedData.articles);
+        setLoading(false);
+        setTotalResults(
+          parsedData.totalResults >= 100 ? 100 : parsedData.totalResults
+        );
+        props.setProgress(100);
+        break;
+      }
+    }
   };
   useEffect(() => {
     props.category.length !== 0 &&
@@ -146,8 +167,7 @@ const News = (props) => {
       <div
         className={`space pt-[5rem] lg:pt-0 transition-all duration-300 ${
           props.darkMode ? "bg-[#292a2d]" : "bg-[#f6f8fc]"
-        }`}
-      ></div>
+        }`}></div>
       {props.category !== "general" &&
         props.category !== "local" &&
         props.category !== "xyz" &&
@@ -159,14 +179,13 @@ const News = (props) => {
               props.darkMode
                 ? "bg-[#292a2d] text-white"
                 : "bg-[#f6f8fc] text-black"
-            } px-2 py-3 lg:pt-32 lg:pb-5 flex justify-start items-center lg:px-72 text-3xl`}
-          >
+            } px-2 py-3 lg:pt-32 lg:pb-5 flex justify-start items-center lg:px-72 text-3xl`}>
             <img
               className={`${
                 imageUpdation(props.category).bgColor
               } rounded-full mr-2`}
               src={imageUpdation(props.category).type}
-              alt=""
+              alt=''
             />
             {props.category[0].toUpperCase() + props.category.substring(1)}
           </div>
@@ -181,8 +200,7 @@ const News = (props) => {
             props.darkMode
               ? "bg-[#292a2d] text-white"
               : "bg-[#f6f8fc] text-blue-600"
-          } lg:pt-32 flex items-center text-2xl px-2 lg:pl-72 py-4 lg:rounded-t-2xl`}
-        >
+          } lg:pt-32 flex items-center text-2xl px-2 lg:pl-72 py-4 lg:rounded-t-2xl`}>
           {" "}
           <Link
             to={
@@ -193,8 +211,7 @@ const News = (props) => {
                 : props.category === "xyz"
                 ? ""
                 : "/world"
-            }
-          >
+            }>
             {" "}
             {props.category === "general"
               ? "India Top-headlines"
@@ -204,7 +221,7 @@ const News = (props) => {
               ? `Search related to ${props.query}`
               : "World Top-headlines"}
           </Link>
-          <span className="pb-[6px] ml-2 mt-1 text-4xl">&#8250;</span>
+          <span className='pb-[6px] ml-2 mt-1 text-4xl'>&#8250;</span>
         </div>
       )}
       {loading && <Spinner />}
@@ -212,13 +229,11 @@ const News = (props) => {
         dataLength={articles.length}
         next={fetchMoreData}
         hasMore={page < Math.ceil(totalResults / props.pageSize)}
-        loader={<Spinner />}
-      >
+        loader={<Spinner />}>
         <div
           className={`transition-all duration-300 ${
             props.darkMode ? "bg-[#292a2d]" : "bg-[#f6f8fc]"
-          } pb-4`}
-        >
+          } pb-4`}>
           {articles.map((element) => {
             return (
               element.title &&
