@@ -20,7 +20,7 @@ const News = (props) => {
   const [totalResults, setTotalResults] = useState(0);
 
   const API_LIST = [
-   
+
     "1bd9b845d71e49e29c42c1f183bafce9",
     "c8ef8c39943d436e8b9c8cb09cce8d1c",
   ];
@@ -28,19 +28,17 @@ const News = (props) => {
   const fetchMoreData = async () => {
     let finalData = null;
     for (const values of API_LIST) {
-      let url = `https://newsapi.org/v2/${props.mainEndpoint}?${
-        props.query ? `q=${props.query}&` : ""
-      }${props.country ? `country=${props.country}&` : ""}${
-        props.category !== null &&
-        props.category !== "india" &&
-        props.category !== "world" &&
-        props.category !== "local" &&
-        props.category !== "xyz"
+      let url = `https://newsapi.org/v2/${props.mainEndpoint}?${props.query ? `q=${props.query}&` : ""
+        }${props.country ? `country=${props.country}&` : ""}${props.category !== null &&
+          props.category !== "india" &&
+          props.category !== "world" &&
+          props.category !== "local" &&
+          props.category !== "xyz"
           ? `category=${props.category}&`
           : ""
-      }pageSize=${props.pageSize}&apiKey=${values}&page=${page + 1}`;
+        }pageSize=${props.pageSize}&apiKey=${values}&page=${page + 1}`;
 
-      const proxyURL = "https://mintedtweets.cordify.app/proxy-server";
+      const proxyURL = "https://the-insight-news-backend.onrender.com/api/proxy-server";
       const payloadJson = {
         url: url,
         isGet: true,
@@ -62,7 +60,7 @@ const News = (props) => {
       setPage(page + 1);
 
       let parsedData = finalData.data;
-      if (parsedData.code != "rateLimited") {
+      if (parsedData.code !== "rateLimited") {
         setArticles(articles.concat(parsedData.articles));
         setTotalResults(
           parsedData.totalResults >= 100 ? 100 : parsedData.totalResults
@@ -79,18 +77,16 @@ const News = (props) => {
 
     //loop through the api list and find the one that works
     for (const values of API_LIST) {
-      let url = `https://newsapi.org/v2/${props.mainEndpoint}?${
-        props.query ? `q=${props.query}&` : ""
-      }${props.country ? `country=${props.country}&` : ""}${
-        props.category !== null &&
-        props.category !== "india" &&
-        props.category !== "world" &&
-        props.category !== "local" &&
-        props.category !== "xyz"
+      let url = `https://newsapi.org/v2/${props.mainEndpoint}?${props.query ? `q=${props.query}&` : ""
+        }${props.country ? `country=${props.country}&` : ""}${props.category !== null &&
+          props.category !== "india" &&
+          props.category !== "world" &&
+          props.category !== "local" &&
+          props.category !== "xyz"
           ? `category=${props.category}&`
           : ""
-      }pageSize=${props.pageSize}&apiKey=${values}&page=${page}`;
-      const proxyURL = "https://mintedtweets.cordify.app/proxy-server";
+        }pageSize=${props.pageSize}&apiKey=${values}&page=${page}`;
+      const proxyURL = "https://the-insight-news-backend.onrender.com/api/proxy-server";
       const payloadJson = {
         url: url,
         isGet: true,
@@ -110,7 +106,7 @@ const News = (props) => {
       finalData = await finalResponse.json();
       props.setProgress(30);
       let parsedData = finalData.data;
-      if (parsedData.code != "rateLimited") {
+      if (parsedData.code !== "rateLimited") {
         props.setProgress(50);
         setArticles(parsedData.articles);
         setLoading(false);
@@ -125,13 +121,11 @@ const News = (props) => {
   useEffect(() => {
     props.category.length !== 0 &&
       props.category !== "xyz" &&
-      (document.title = `The Insight-${
-        props.category[0].toUpperCase() + props.category.substring(1)
-      }`);
+      (document.title = `The Insight-${props.category[0].toUpperCase() + props.category.substring(1)
+        }`);
     props.category === "xyz" &&
-      (document.title = `The Insight-${
-        props.query[0].toUpperCase() + props.query.substring(1)
-      }`);
+      (document.title = `The Insight-${props.query[0].toUpperCase() + props.query.substring(1)
+        }`);
     updateLink(page);
     // eslint-disable-next-line
   }, []);
@@ -165,9 +159,8 @@ const News = (props) => {
   return (
     <>
       <div
-        className={`space pt-[5rem] lg:pt-0 transition-all duration-300 ${
-          props.darkMode ? "bg-[#292a2d]" : "bg-[#f6f8fc]"
-        }`}></div>
+        className={`space pt-[5rem] lg:pt-0 transition-all duration-300 ${props.darkMode ? "bg-[#292a2d]" : "bg-[#f6f8fc]"
+          }`}></div>
       {props.category !== "general" &&
         props.category !== "local" &&
         props.category !== "xyz" &&
@@ -175,15 +168,13 @@ const News = (props) => {
           props.mainEndpoint === "top-headlines" && props.query === "world"
         ) && (
           <div
-            className={`transition-all duration-300 ${
-              props.darkMode
+            className={`transition-all duration-300 ${props.darkMode
                 ? "bg-[#292a2d] text-white"
                 : "bg-[#f6f8fc] text-black"
-            } px-2 py-3 lg:pt-32 lg:pb-5 flex justify-start items-center lg:px-72 text-3xl`}>
+              } px-2 py-3 lg:pt-32 lg:pb-5 flex justify-start items-center lg:px-72 text-3xl`}>
             <img
-              className={`${
-                imageUpdation(props.category).bgColor
-              } rounded-full mr-2`}
+              className={`${imageUpdation(props.category).bgColor
+                } rounded-full mr-2`}
               src={imageUpdation(props.category).type}
               alt=''
             />
@@ -195,35 +186,34 @@ const News = (props) => {
         props.category === "xyz" ||
         (props.mainEndpoint === "top-headlines" &&
           props.query === "world")) && (
-        <div
-          className={`transition-all duration-300 font-nunito ${
-            props.darkMode
-              ? "bg-[#292a2d] text-white"
-              : "bg-[#f6f8fc] text-blue-600"
-          } lg:pt-32 flex items-center text-2xl px-2 lg:pl-72 py-4 lg:rounded-t-2xl`}>
-          {" "}
-          <Link
-            to={
-              props.category === "general"
-                ? "/india"
-                : props.category === "local"
-                ? "/local"
-                : props.category === "xyz"
-                ? ""
-                : "/world"
-            }>
+          <div
+            className={`transition-all duration-300 font-nunito ${props.darkMode
+                ? "bg-[#292a2d] text-white"
+                : "bg-[#f6f8fc] text-blue-600"
+              } lg:pt-32 flex items-center text-2xl px-2 lg:pl-72 py-4 lg:rounded-t-2xl`}>
             {" "}
-            {props.category === "general"
-              ? "India Top-headlines"
-              : props.category === "local"
-              ? "Your local news"
-              : props.category === "xyz"
-              ? `Search related to ${props.query}`
-              : "World Top-headlines"}
-          </Link>
-          <span className='pb-[6px] ml-2 mt-1 text-4xl'>&#8250;</span>
-        </div>
-      )}
+            <Link
+              to={
+                props.category === "general"
+                  ? "/india"
+                  : props.category === "local"
+                    ? "/local"
+                    : props.category === "xyz"
+                      ? ""
+                      : "/world"
+              }>
+              {" "}
+              {props.category === "general"
+                ? "India Top-headlines"
+                : props.category === "local"
+                  ? "Your local news"
+                  : props.category === "xyz"
+                    ? `Search related to ${props.query}`
+                    : "World Top-headlines"}
+            </Link>
+            <span className='pb-[6px] ml-2 mt-1 text-4xl'>&#8250;</span>
+          </div>
+        )}
       {loading && <Spinner />}
       <InfiniteScroll
         dataLength={articles.length}
@@ -231,9 +221,8 @@ const News = (props) => {
         hasMore={page < Math.ceil(totalResults / props.pageSize)}
         loader={<Spinner />}>
         <div
-          className={`transition-all duration-300 ${
-            props.darkMode ? "bg-[#292a2d]" : "bg-[#f6f8fc]"
-          } pb-4`}>
+          className={`transition-all duration-300 ${props.darkMode ? "bg-[#292a2d]" : "bg-[#f6f8fc]"
+            } pb-4`}>
           {articles.map((element) => {
             return (
               element.title &&
